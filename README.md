@@ -1,7 +1,13 @@
 # [Guzzle](http://docs.guzzlephp.org/en/latest/) plugin with [Clockwork](https://github.com/itsgoingd/clockwork)
 [![Build Status](https://travis-ci.org/hannesvdvreken/guzzle-clockwork.png?branch=master)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork)
 
-Guzzle Plugin for logging to clockwork so you can view the requests timeline and logs in your browser's developer tools.
+Guzzle Plugin for logging to clockwork so you can view the requests timeline...
+
++![Developer tools timeline](https://www.dropbox.com/s/2okdxq30qr1n8os/timeline.png "Developer tools timeline")
+
+and logs in your browser's developer tools.
+
++![Developer tools logs](https://www.dropbox.com/s/ca1gydqgar1twq6/log.png "Developer tools logs")
 
 ## Usage
 
