@@ -3,11 +3,11 @@
 
 Guzzle Plugin for logging to clockwork so you can view the requests timeline...
 
-+![Developer tools timeline](https://www.dropbox.com/s/2okdxq30qr1n8os/timeline.png "Developer tools timeline")
+[!Developer tools timeline](https://dl.dropboxusercontent.com/s/2okdxq30qr1n8os/timeline.png?dl=1&token_hash=AAH3BzQL-ks_lotJBZ-6iZ9i1OYaX8T9pEbA0vY_KWqp2g "Developer tools timeline")
 
 and logs in your browser's developer tools.
 
-+![Developer tools logs](https://www.dropbox.com/s/ca1gydqgar1twq6/log.png "Developer tools logs")
+[!Developer tools logs](https://www.dropbox.com/s/ca1gydqgar1twq6/log.png "Developer tools logs")
 
 ## Usage
 
