@@ -1,4 +1,4 @@
-# OAuth service classes with Guzzle
+# [Guzzle](http://docs.guzzlephp.org/en/latest/) plugin with [Clockwork](https://github.com/itsgoingd/clockwork) for viewing logging in Browser developer tools
 [![Build Status](https://travis-ci.org/hannesvdvreken/guzzle-clockwork.png?branch=master)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork)
 
 ## Usage
