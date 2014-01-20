@@ -1,0 +1,25 @@
+{
+    "name": "hannesvdvreken/guzzle-clockwork",
+    "description": "A Guzzle plugin that listens to events and logs them with Clockwork",
+    "authors": [
+        {
+            "name": "Hannes Van De Vreken",
+            "email": "vandevreken.hannes@gmail.com"
+        }
+    ],
+    "keywords": ["Clockwork", "Log", "Guzzle", "Events", "PHP", "Browser", "Devtools"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.0",
+        "guzzle/guzzle": "~3"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Guzzle\\Plugin\\Log\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
