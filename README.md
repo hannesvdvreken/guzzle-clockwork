@@ -17,7 +17,7 @@ $client = new Guzzle\Http\Client;
 $clockwork = new Clockwork\Clockwork;
 
 // Create the Guzzle plugin
-$plugin = new Guzzle\Plugin\Log\Clockwork($clockwork);
+$plugin = new Guzzle\Plugin\Log\ClockworkPlugin($clockwork);
 
 // Add it as a subscriber
 $client->addSubscriber($plugin);
