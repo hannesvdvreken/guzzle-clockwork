@@ -150,6 +150,7 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
         // Arrange
         $method = 'POST';
         $host = 'example.com';
+        $md5request = 'request-string';
 
         $clockwork = Mockery::mock('Clockwork\Clockwork');
         $event = Mockery::mock('Guzzle\Common\Event');
@@ -158,10 +159,12 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
             ->with('request')->andReturn($request);
         $request->shouldReceive('getMethod')->once()
             ->andReturn($method);
+        $request->shouldReceive('__toString')->once()
+            ->andReturn($md5request);
         $request->shouldReceive('getHeader')->once()
             ->with('Host')->andReturn($host);
         $clockwork->shouldReceive('startEvent')->once()
-            ->with('guzzle.request', 'Performing a '. $method .' request to '. $host .'.');
+            ->with('guzzle.request.'. md5($md5request), 'Performing a '. $method .' request to '. $host .'.');
 
         // Act
         $plugin = new Guzzle\Plugin\Log\ClockworkPlugin($clockwork);
@@ -176,10 +179,17 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
     public function test_on_request_complete()
     {
         // Arrange
+        $md5request = 'request-string';
+        // 
         $clockwork = Mockery::mock('Clockwork\Clockwork');
+        $request = Mockery::mock('Guzzle\Http\Message\Request');
         $event = Mockery::mock('Guzzle\Common\Event');
+        $event->shouldReceive('offsetGet')->once()
+            ->with('request')->andReturn($request);
+        $request->shouldReceive('__toString')->once()
+            ->andReturn($md5request);
         $clockwork->shouldReceive('endEvent')->once()
-            ->with('guzzle.request');
+            ->with('guzzle.request.'. md5($md5request));
 
         // Act
         $plugin = new Guzzle\Plugin\Log\ClockworkPlugin($clockwork);
