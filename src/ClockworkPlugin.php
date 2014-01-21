@@ -84,9 +84,10 @@ class ClockworkPlugin implements EventSubscriberInterface
     {
         // Grab the request object.
         $request = $event['request'];
+        $id = md5($request);
 
         // Start the event.
-        $this->clockwork->startEvent('guzzle.request', join(' ', array(
+        $this->clockwork->startEvent("guzzle.request.$id", join(' ', array(
             'Performing a',
             $request->getMethod(),
             'request to',
@@ -101,8 +102,12 @@ class ClockworkPlugin implements EventSubscriberInterface
      */
     public function onRequestComplete(Event $event)
     {
+        // Grab the request object.
+        $request = $event['request'];
+        $id = md5($request);
+        
         // Stop the timer.
-        $this->clockwork->endEvent('guzzle.request');
+        $this->clockwork->endEvent("guzzle.request.$id");
     }
 
     /**
