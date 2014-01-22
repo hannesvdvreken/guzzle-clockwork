@@ -1,5 +1,5 @@
 # [Guzzle](http://docs.guzzlephp.org/en/latest/) plugin with [Clockwork](https://github.com/itsgoingd/clockwork)
-[![Build Status](https://travis-ci.org/hannesvdvreken/guzzle-clockwork.png?branch=master)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork)[![Latest Stable Version](https://poser.pugx.org/hannesvdvreken/guzzle-clockwork/v/stable.png)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork) [![Total Downloads](https://poser.pugx.org/hannesvdvreken/guzzle-clockwork/downloads.png)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
+[![Build Status](https://travis-ci.org/hannesvdvreken/guzzle-clockwork.png?branch=master)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork) [![Latest Stable Version](https://poser.pugx.org/hannesvdvreken/guzzle-clockwork/v/stable.png)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork) [![Total Downloads](https://poser.pugx.org/hannesvdvreken/guzzle-clockwork/downloads.png)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
 
 Guzzle Plugin for logging to clockwork so you can view the requests timeline and logs in your browser's developer tools.
 
