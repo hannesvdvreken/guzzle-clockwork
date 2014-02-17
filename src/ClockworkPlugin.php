@@ -82,17 +82,8 @@ class ClockworkPlugin implements EventSubscriberInterface
      */
     public function onRequestBeforeSend(Event $event)
     {
-        // Grab the request object.
-        $request = $event['request'];
-        $id = md5($request);
-
-        // Start the event.
-        $this->clockwork->startEvent("guzzle.request.$id", join(' ', array(
-            'Performing a',
-            $request->getMethod(),
-            'request to',
-            $request->getHeader('Host'),
-        )) .'.');
+        // Start an event for this request.
+        $this->startEvent($event['request']);
     }
 
     /**
@@ -105,9 +96,14 @@ class ClockworkPlugin implements EventSubscriberInterface
         // Grab the request object.
         $request = $event['request'];
         $id = md5($request);
+
+        // Add it if it didn't exist already.
+        if ( ! in_array('guzzle.request.'. $id, $this->clockwork->getTimeline()->toArray())) {
+            $this->startEvent($request);
+        }
         
         // Stop the timer.
-        $this->clockwork->endEvent("guzzle.request.$id");
+        $this->clockwork->endEvent('guzzle.request.'. $id);
     }
 
     /**
@@ -121,11 +117,25 @@ class ClockworkPlugin implements EventSubscriberInterface
         $request  = $event['request'];
         $response = $event['response'];
 
-        $this->clockwork->$level(join(' ', array(
-            $request->getMethod(),
-            $request->getUrl(),
-            'returned',
-            $response->getStatusCode(),
-        )));
+        $this->clockwork->$level(sprintf(
+            '%s %s returned %s',
+            $request->getMethod(), $request->getUrl(), $response->getStatusCode()
+        ));
+    }
+
+    /**
+     * Log a request start
+     *
+     * @param  Guzzle\Http\Message\Request $request
+     */
+    protected function startEvent($request)
+    {
+        // Get unique identifier.
+        $id = md5($request);
+
+        // Start the event.
+        $this->clockwork->startEvent('guzzle.request.'. $id,
+            sprintf('Performing a %s request to %s.', $request->getMethod(), $request->getHeader('Host'))
+        );
     }
 }
