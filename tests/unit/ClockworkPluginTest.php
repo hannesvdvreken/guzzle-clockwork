@@ -182,6 +182,7 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
         $md5request = 'request-string';
         // 
         $clockwork = Mockery::mock('Clockwork\Clockwork');
+        $timeline = Mockery::mock('Clockwork\Request\Timeline');
         $request = Mockery::mock('Guzzle\Http\Message\Request');
         $event = Mockery::mock('Guzzle\Common\Event');
         $event->shouldReceive('offsetGet')->once()
@@ -190,6 +191,10 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
             ->andReturn($md5request);
         $clockwork->shouldReceive('endEvent')->once()
             ->with('guzzle.request.'. md5($md5request));
+        $clockwork->shouldReceive('getTimeline')->once()
+            ->andReturn($timeline);
+        $timeline->shouldReceive('toArray')->once()
+            ->andReturn(array('guzzle.request.'. md5($md5request) => array()));
 
         // Act
         $plugin = new Guzzle\Plugin\Log\ClockworkPlugin($clockwork);
