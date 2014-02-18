@@ -95,7 +95,7 @@ class ClockworkPlugin implements EventSubscriberInterface
     {
         // Grab the request object.
         $request = $event['request'];
-        $id = md5($request);
+        $id = spl_object_hash($request);
 
         // Add it if it didn't exist already.
         if ( ! array_key_exists('guzzle.request.'. $id, $this->clockwork->getTimeline()->toArray())) {
@@ -131,7 +131,7 @@ class ClockworkPlugin implements EventSubscriberInterface
     protected function startEvent($request)
     {
         // Get unique identifier.
-        $id = md5($request);
+        $id = spl_object_hash($request);
 
         // Start the event.
         $this->clockwork->startEvent('guzzle.request.'. $id,
