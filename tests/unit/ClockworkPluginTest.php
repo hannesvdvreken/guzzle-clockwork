@@ -150,7 +150,6 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
         // Arrange
         $method = 'POST';
         $host = 'example.com';
-        $fakeRequest = new stdClass;
 
         $clockwork = Mockery::mock('Clockwork\Clockwork');
         $event = Mockery::mock('Guzzle\Common\Event');
@@ -159,12 +158,10 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
             ->with('request')->andReturn($request);
         $request->shouldReceive('getMethod')->once()
             ->andReturn($method);
-        $request->shouldReceive('__toString')->once()
-            ->andReturn($fakeRequest);
         $request->shouldReceive('getHeader')->once()
             ->with('Host')->andReturn($host);
         $clockwork->shouldReceive('startEvent')->once()
-            ->with('guzzle.request.'. spl_object_hash($fakeRequest), 'Performing a '. $method .' request to '. $host .'.');
+            ->with('guzzle.request.'. spl_object_hash($request), 'Performing a '. $method .' request to '. $host .'.');
 
         // Act
         $plugin = new Guzzle\Plugin\Log\ClockworkPlugin($clockwork);
@@ -179,8 +176,6 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
     public function test_on_request_complete()
     {
         // Arrange
-        $fakeRequest = new stdClass;
-        
         // Mockery
         $clockwork = Mockery::mock('Clockwork\Clockwork');
         $timeline = Mockery::mock('Clockwork\Request\Timeline');
@@ -188,14 +183,12 @@ class ClockworkPluginTest extends PHPUnit_Framework_TestCase
         $event = Mockery::mock('Guzzle\Common\Event');
         $event->shouldReceive('offsetGet')->once()
             ->with('request')->andReturn($request);
-        $request->shouldReceive('__toString')->once()
-            ->andReturn($fakeRequest);
         $clockwork->shouldReceive('endEvent')->once()
-            ->with('guzzle.request.'. spl_object_hash($fakeRequest));
+            ->with('guzzle.request.'. spl_object_hash($request));
         $clockwork->shouldReceive('getTimeline')->once()
             ->andReturn($timeline);
         $timeline->shouldReceive('toArray')->once()
-            ->andReturn(array('guzzle.request.'. spl_object_hash($fakeRequest) => array()));
+            ->andReturn(array('guzzle.request.'. spl_object_hash($request) => array()));
 
         // Act
         $plugin = new Guzzle\Plugin\Log\ClockworkPlugin($clockwork);
