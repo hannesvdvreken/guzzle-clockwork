@@ -14,7 +14,8 @@
         "guzzle/guzzle": "~3"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "0.9.*",
+        "itsgoingd/clockwork": "1.5.*"
     },
     "autoload": {
         "psr-4": {
