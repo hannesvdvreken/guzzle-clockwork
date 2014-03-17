@@ -15,7 +15,8 @@
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
-        "itsgoingd/clockwork": "1.5.*"
+        "itsgoingd/clockwork": "1.5.*",
+        "illuminate/support": "~4"
     },
     "autoload": {
         "psr-4": {
