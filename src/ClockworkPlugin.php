@@ -47,7 +47,7 @@ class ClockworkPlugin implements EventSubscriberInterface
      */
     public function onRequestSuccess(Event $event)
     {
-       $this->log('info', $event);
+        $this->log('info', $event);
     }
 
     /**
@@ -69,8 +69,7 @@ class ClockworkPlugin implements EventSubscriberInterface
     {
         $exception = $event['exception'];
 
-        if ($exception instanceof CurlException)
-        {
+        if ($exception instanceof CurlException) {
             $this->clockwork->critical($exception->getMessage());
         }
     }
@@ -98,7 +97,7 @@ class ClockworkPlugin implements EventSubscriberInterface
         $id = spl_object_hash($request);
 
         // Add it if it didn't exist already.
-        if ( ! array_key_exists('guzzle.request.'. $id, $this->clockwork->getTimeline()->toArray())) {
+        if (! array_key_exists('guzzle.request.'. $id, $this->clockwork->getTimeline()->toArray())) {
             $this->startEvent($request);
         }
         
@@ -119,7 +118,9 @@ class ClockworkPlugin implements EventSubscriberInterface
 
         $this->clockwork->$level(sprintf(
             '%s %s returned %s',
-            $request->getMethod(), $request->getUrl(), $response->getStatusCode()
+            $request->getMethod(),
+            $request->getUrl(),
+            $response->getStatusCode()
         ));
     }
 
@@ -134,7 +135,8 @@ class ClockworkPlugin implements EventSubscriberInterface
         $id = spl_object_hash($request);
 
         // Start the event.
-        $this->clockwork->startEvent('guzzle.request.'. $id,
+        $this->clockwork->startEvent(
+            'guzzle.request.'. $id,
             sprintf('Performing a %s request to %s.', $request->getMethod(), $request->getHeader('Host'))
         );
     }

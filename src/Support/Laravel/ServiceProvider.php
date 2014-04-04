@@ -3,6 +3,7 @@ namespace Guzzle\Plugin\Log\Support\Laravel;
 
 use Guzzle\Plugin\Log\ClockworkPlugin;
 use Guzzle\Http\Client;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -14,8 +15,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         // Configuring all guzzle clients.
-        $this->app->bind('Guzzle\Http\Client', function($app)
-        {
+        $this->app->bind('Guzzle\Http\Client', function ($app) {
             // Guzzle client
             $client = new Client;
 
