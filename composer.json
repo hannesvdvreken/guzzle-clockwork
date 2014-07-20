@@ -11,7 +11,7 @@
     "license": "MIT",
     "require": {
         "php": ">=5.3.0",
-        "guzzle/guzzle": "~3"
+        "guzzlehttp/guzzle": "~4"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Guzzle\\Plugin\\Log\\": "src/"
+            "GuzzleHttp\\Subscriber\\Log\\": "src/"
         }
     },
     "minimum-stability": "dev"
