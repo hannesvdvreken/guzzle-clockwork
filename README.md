@@ -27,12 +27,23 @@ And you are done!
 
 ### Laravel 4
 
-If you are using Laravel 4, create your own service provider to add the plugin to each Guzzle Client
-and be sure to grab the configured clockwork object from the IoC container:
+If you are using Laravel 4, use the included service providers to add
+the subscriber to every Guzzle Client.
 
 ```php
-$clockwork = $this->app->make('clockwork');
+'providers' => [
+    ...
+    'Clockwork\Support\Laravel\ClockworkServiceProvider',
+    'GuzzleHttp\Subscriber\Log\Support\Laravel\ServiceProvider',  
+]
 ```
+
+Be sure to create every client via the auto-resolving application container:
+
+```php
+$client = App::make('GuzzleHttp\Client');
+```
+
 
 ## Contributing
 Feel free to make a pull request. Please try to be as
