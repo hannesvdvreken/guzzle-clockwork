@@ -44,6 +44,14 @@ Be sure to create every client via the auto-resolving application container:
 $client = App::make('GuzzleHttp\Client');
 ```
 
+## Guzzle version 3
+The old code that works with Guzzle version 3 can be found under the
+[guzzle3 branch](https://github.com/hannesvdvreken/guzzle-clockwork/tree/guzzle3).
+
+You can choose to install a `0.1.*` version of this package and log every request
+made with guzzle v3 clients, or install a `0.2` and up version for every request
+made with guzzle v4 clients.
+
 ## Contributing
 Feel free to make a pull request. Please try to be as
 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
