@@ -6,7 +6,7 @@ php:
   - hhvm
 
 before_script:
-  - composer self-update
+  - composer self-update || echo ''
   - composer install --prefer-source --dev
 
 script: phpunit
