@@ -44,11 +44,18 @@ Be sure to create every client via the auto-resolving application container:
 $client = App::make('GuzzleHttp\Client');
 ```
 
-
 ## Contributing
 Feel free to make a pull request. Please try to be as
 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 compliant as possible.
+
+### Testing
+
+To test your code before pushing, run the unit test suite.
+
+```bash
+phpunit
+```
 
 ## License
 
