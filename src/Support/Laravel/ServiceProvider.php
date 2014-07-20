@@ -1,32 +1,32 @@
 <?php
-namespace Guzzle\Plugin\Log\Support\Laravel;
+namespace GuzzleHttp\Subscriber\Log\Support\Laravel;
 
-use Guzzle\Plugin\Log\ClockworkPlugin;
-use Guzzle\Http\Client;
+use GuzzleHttp\Subscriber\Log\ClockworkSubscriber;
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
     /**
      *  Register method
-     * 
+     *
      * @return  void
      */
     public function register()
     {
         // Configuring all guzzle clients.
-        $this->app->bind('Guzzle\Http\Client', function ($app) {
+        $this->app->bind('GuzzleHttp\Client', function ($app) {
             // Guzzle client
             $client = new Client;
 
             // The Clockwork object from the application container.
-            $clockwork = $this->app->make('clockwork');
+            $clockwork = $app->make('clockwork');
 
             // Create the Guzzle plugin.
-            $plugin = new ClockworkPlugin($clockwork);
+            $plugin = new ClockworkSubscriber($clockwork);
 
             // Add it as a subscriber.
-            $client->addSubscriber($plugin);
+            $client->getEmitter()->attach($plugin);
 
             // Return the client.
             return $client;
