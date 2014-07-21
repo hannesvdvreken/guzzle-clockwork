@@ -8,6 +8,7 @@ use GuzzleHttp\Event\CompleteEvent;
 use GuzzleHttp\Event\ErrorEvent;
 use GuzzleHttp\Event\HeadersEvent;
 use GuzzleHttp\Event\SubscriberInterface;
+use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\Request;
 
 class ClockworkSubscriber implements SubscriberInterface
@@ -49,7 +50,12 @@ class ClockworkSubscriber implements SubscriberInterface
      */
     public function onError(ErrorEvent $event)
     {
-        $this->clockwork->error($event->getException()->getMessage());
+        if ($response = $event->getResponse()) {
+            $request = $event->getRequest();
+            $this->log('error', $request, $response);
+        } else {
+            $this->clockwork->error($event->getException()->getMessage());
+        }
     }
 
     /**
@@ -95,8 +101,18 @@ class ClockworkSubscriber implements SubscriberInterface
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
-        
-        $this->clockwork->info(sprintf(
+
+        $this->log('info', $request, $response);
+    }
+
+    /**
+     * @param  string $level
+     * @param  Request $request
+     * @param  Response $response
+     */
+    protected function log($level, Request $request, Response $response)
+    {
+        $this->clockwork->$level(sprintf(
             '%s %s returned %s',
             $request->getMethod(),
             $request->getUrl(),

@@ -49,8 +49,47 @@ class ClockworkSubscriberTest extends PHPUnit_Framework_TestCase
         $clockwork = Mockery::mock('Clockwork\Clockwork');
         $event = Mockery::mock('GuzzleHttp\Event\ErrorEvent');
 
+        $event->shouldReceive('getResponse')->once()
+            ->andReturn(null);
         $event->shouldReceive('getException->getMessage')->once()
             ->andReturn($message);
+        $clockwork->shouldReceive('error')->once()
+            ->with($message);
+
+        // Act
+        $subscriber = new ClockworkSubscriber($clockwork);
+        $subscriber->onError($event);
+
+        // Assert
+    }
+
+    /**
+     * @test
+     * Test on error method with event having response
+     */
+    public function on_error_with_response()
+    {
+        // Arrange
+        $method = 'PATCH';
+        $url = 'api.justyo.co';
+        $status = '403';
+        $message = sprintf('%s %s returned %s', $method, $url, $status);
+
+        $clockwork = Mockery::mock('Clockwork\Clockwork');
+        $event = Mockery::mock('GuzzleHttp\Event\ErrorEvent');
+        $response = Mockery::mock('GuzzleHttp\Message\Response');
+        $request = Mockery::mock('GuzzleHttp\Message\Request');
+
+        $event->shouldReceive('getResponse')->once()
+            ->andReturn($response);
+        $event->shouldReceive('getRequest')->once()
+            ->andReturn($request);
+        $request->shouldReceive('getUrl')->once()
+            ->andReturn($url);
+        $request->shouldReceive('getMethod')->once()
+            ->andReturn($method);
+        $response->shouldReceive('getStatusCode')->once()
+            ->andReturn($status);
         $clockwork->shouldReceive('error')->once()
             ->with($message);
 
