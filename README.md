@@ -44,13 +44,12 @@ Be sure to create every client via the auto-resolving application container:
 $client = App::make('GuzzleHttp\Client');
 ```
 
-## Guzzle version 3
-The old code that works with Guzzle version 3 can be found under the
-[guzzle3 branch](https://github.com/hannesvdvreken/guzzle-clockwork/tree/guzzle3).
+## Guzzle v3
 
-You can choose to install a `0.1.*` version of this package and log every request
-made with guzzle v3 clients, or install a `0.2` and up version for every request
-made with guzzle v4 clients.
+If you want to continue to work with the old Guzzle v3 (`Guzzle\Http\Client` instead of `GuzzleHttp\Client`) ClockworkPlugin
+then you might want to install the `0.1.*` releases. Pull request with Guzzle v3 compatibility should be made against the `guzzle3` [branch](https://github.com/hannesvdvreken/guzzle-clockwork/tree/guzzle3). Install the latest guzzle v3 compatible version with `0.1.*` or `dev-guzzle3`.
+
+Versions `0.2.0` and up are all compatible with Guzzle v4.
 
 ## Contributing
 Feel free to make a pull request. Please try to be as
