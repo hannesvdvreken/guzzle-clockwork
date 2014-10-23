@@ -49,7 +49,7 @@ $client = App::make('GuzzleHttp\Client');
 If you want to continue to work with the old Guzzle v3 (`Guzzle\Http\Client` instead of `GuzzleHttp\Client`) ClockworkPlugin
 then you might want to install the `0.1.*` releases. Pull request with Guzzle v3 compatibility should be made against the `guzzle3` [branch](https://github.com/hannesvdvreken/guzzle-clockwork/tree/guzzle3). Install the latest guzzle v3 compatible version with `0.1.*` or `dev-guzzle3`.
 
-Versions `0.2.0` and up are all compatible with Guzzle v4.
+Versions `0.2.0` and up are all compatible with Guzzle v4 and v5.
 
 ## Contributing
 Feel free to make a pull request. Please try to be as
