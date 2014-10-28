@@ -20,7 +20,7 @@ $clockwork = new Clockwork\Clockwork;
 $subscriber = new GuzzleHttp\Subscriber\Log\ClockworkSubscriber($clockwork);
 
 // Add it as a subscriber
-$client->attach($subscriber);
+$client->getEmitter()->attach($subscriber);
 ```
 
 And you are done!
