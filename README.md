@@ -3,7 +3,7 @@
 [![Latest Stable Version](http://img.shields.io/packagist/v/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
 [![Total Downloads](http://img.shields.io/packagist/dt/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
 [![Coverage Status](https://img.shields.io/coveralls/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://coveralls.io/r/hannesvdvreken/guzzle-clockwork?branch=master)
-[![License](http://img.shields.io/packagist/l/hannesvdvreken/guzzle-clockworkh.svg?style=flat-square)](#license)
+[![License](http://img.shields.io/packagist/l/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](#license)
 
 Guzzle Subscriber for logging to clockwork so you can view the requests timeline and logs in your browser's developer tools.
 
