@@ -1,5 +1,9 @@
 # [Guzzle](http://docs.guzzlephp.org/en/latest/) subscriber for [Clockwork](https://github.com/itsgoingd/clockwork) logging
-[![Build Status](https://travis-ci.org/hannesvdvreken/guzzle-clockwork.png?branch=master)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork) [![Latest Stable Version](https://poser.pugx.org/hannesvdvreken/guzzle-clockwork/v/stable.png)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork) [![Total Downloads](https://poser.pugx.org/hannesvdvreken/guzzle-clockwork/downloads.png)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
+[![Build Status](http://img.shields.io/travis/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork)
+[![Latest Stable Version](http://img.shields.io/packagist/v/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
+[![Total Downloads](http://img.shields.io/packagist/dt/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
+[![Coverage Status](https://img.shields.io/coveralls/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://coveralls.io/r/hannesvdvreken/guzzle-clockwork?branch=master)
+[![License](http://img.shields.io/packagist/l/hannesvdvreken/guzzle-clockworkh.svg?style=flat-square)](#license)
 
 Guzzle Subscriber for logging to clockwork so you can view the requests timeline and logs in your browser's developer tools.
 
