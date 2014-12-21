@@ -70,4 +70,4 @@ phpunit
 
 ## License
 
-MIT
+[MIT](license)
