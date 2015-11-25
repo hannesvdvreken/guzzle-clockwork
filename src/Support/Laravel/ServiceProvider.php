@@ -1,35 +1,75 @@
 <?php
-namespace GuzzleHttp\Subscriber\Log\Support\Laravel;
+namespace GuzzleHttp\Profiling\Clockwork\Support\Laravel;
 
-use GuzzleHttp\Subscriber\Log\ClockworkSubscriber;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware as GuzzleMiddleware;
+use GuzzleHttp\Profiling\Clockwork\Profiler;
+use GuzzleHttp\Profiling\Middleware;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
     /**
-     *  Register method
-     *
-     * @return  void
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            Client::class,
+            ClientInterface::class,
+            HandlerStack::class,
+        ];
+    }
+
+    /**
+     * Register method.
      */
     public function register()
     {
         // Configuring all guzzle clients.
-        $this->app->bind('GuzzleHttp\Client', function ($app) {
+        $this->app->bind(ClientInterface::class, function () {
             // Guzzle client
-            $client = new Client;
+            return new Client(['handler' => $this->app->make(HandlerStack::class)]);
+        });
 
-            // The Clockwork object from the application container.
-            $clockwork = $app->make('clockwork');
+        $this->app->alias(ClientInterface::class, Client::class);
 
-            // Create the Guzzle plugin.
-            $plugin = new ClockworkSubscriber($clockwork);
+        // Bind if needed.
+        $this->app->bindIf(HandlerStack::class, function () {
+            return HandlerStack::create();
+        });
 
-            // Add it as a subscriber.
-            $client->getEmitter()->attach($plugin);
+        // If resolved, by this SP or another, add some layers.
+        $this->app->resolving(HandlerStack::class, function (HandlerStack $stack) {
+            /** @var \Clockwork\Clockwork $clockwork */
+            $clockwork = $this->app->make('clockwork');
 
-            // Return the client.
-            return $client;
+            $stack->push(new Middleware(new Profiler($clockwork->getTimeline())));
+
+            /** @var \GuzzleHttp\MessageFormatter $formatter */
+            $formatter = $this->app->make(MessageFormatter::class);
+            $stack->unshift(GuzzleMiddleware::log($clockwork->getLog(), $formatter));
+
+            // Also log to the default PSR logger.
+            if ($this->app->bound(LoggerInterface::class)) {
+                $logger = $this->app->make(LoggerInterface::class);
+
+                // Don't log to the same logger twice.
+                if ($logger === $clockwork->getLog()) {
+                    return;
+                }
+
+                // Push the middleware on the stack.
+                $stack->unshift(GuzzleMiddleware::log($logger, $formatter));
+            }
         });
     }
 }

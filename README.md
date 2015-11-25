@@ -1,11 +1,13 @@
-# [Guzzle](http://docs.guzzlephp.org/en/latest/) subscriber for [Clockwork](https://github.com/itsgoingd/clockwork) logging
+# [Guzzle](http://docs.guzzlephp.org/en/latest/) middleware for [Clockwork](https://github.com/itsgoingd/clockwork) logging
+
 [![Build Status](http://img.shields.io/travis/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork)
 [![Latest Stable Version](http://img.shields.io/packagist/v/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
+[![Code Quality](https://img.shields.io/scrutinizer/g/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://scrutinizer-ci.com/g/hannesvdvreken/guzzle-clockwork/)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://scrutinizer-ci.com/g/hannesvdvreken/guzzle-clockwork/)
 [![Total Downloads](http://img.shields.io/packagist/dt/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
-[![Coverage Status](https://img.shields.io/coveralls/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://coveralls.io/r/hannesvdvreken/guzzle-clockwork?branch=master)
 [![License](http://img.shields.io/packagist/l/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](#license)
 
-Guzzle Subscriber for logging to clockwork so you can view the requests timeline and logs in your browser's developer tools.
+Guzzle middleware for logging requests clockwork's timeline so you can view the timeline in your browser's developer tools.
 
 ![Developer tools timeline](https://dl.dropboxusercontent.com/s/2okdxq30qr1n8os/timeline.png?dl=1&token_hash=AAH3BzQL-ks_lotJBZ-6iZ9i1OYaX8T9pEbA0vY_KWqp2g "Developer tools timeline")
 
@@ -14,60 +16,60 @@ Guzzle Subscriber for logging to clockwork so you can view the requests timeline
 ## Usage
 
 ```php
-// First you need a Guzzle HTTP Client
-$client = new GuzzleHttp\Client;
+// First you need a Clockwork object
+$clockwork = new Clockwork\Clockwork();
 
-// Then you need a Clockwork object
-$clockwork = new Clockwork\Clockwork;
+// Create the Guzzle middleware
+$middleware = new GuzzleHttp\Middleware\Log\Clockwork($clockwork);
 
-// Create the Guzzle subscriber
-$subscriber = new GuzzleHttp\Subscriber\Log\ClockworkSubscriber($clockwork);
+// Then you need to add it to the Guzzle HandlerStack
+$stack = GuzzleHttp\HandlerStack::create();
 
-// Add it as a subscriber
-$client->getEmitter()->attach($subscriber);
+$stack->unshift($middleware);
 ```
 
 And you are done!
 
-### Laravel 4
+### Laravel
 
-If you are using Laravel 4, use the included service providers to add
+If you are using Laravel, use the included service providers to add
 the subscriber to every Guzzle Client.
 
 ```php
 'providers' => [
     ...
     'Clockwork\Support\Laravel\ClockworkServiceProvider',
-    'GuzzleHttp\Subscriber\Log\Support\Laravel\ServiceProvider',  
+    'GuzzleHttp\Profiling\Clockwork\Support\Laravel\ServiceProvider',
 ]
 ```
 
-Be sure to create every client via the auto-resolving application container:
+Be sure to create every client (type hint with `GuzzleHttp\ClientInterface` or `GuzzleHttp\Client`) via the IoC container.
 
-```php
-$client = App::make('GuzzleHttp\Client');
-```
+## Guzzle v4 and v5
+
+Versions `0.2.0` and up until `1.0.0` (exclusively) are all compatible with Guzzle v4 and v5. To develop for these versions of Guzzle, use the `guzzle4-5` [branch](https://github.com/hannesvdvreken/guzzle-clockwork/tree/guzzle4-5).
+
+Use
 
 ## Guzzle v3
 
 If you want to continue to work with the old Guzzle v3 (`Guzzle\Http\Client` instead of `GuzzleHttp\Client`) ClockworkPlugin
 then you might want to install the `0.1.*` releases. Pull request with Guzzle v3 compatibility should be made against the `guzzle3` [branch](https://github.com/hannesvdvreken/guzzle-clockwork/tree/guzzle3). Install the latest guzzle v3 compatible version with `0.1.*` or `dev-guzzle3`.
 
-Versions `0.2.0` and up are all compatible with Guzzle v4 and v5.
-
 ## Contributing
+
 Feel free to make a pull request. Please try to be as
 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-compliant as possible.
+compliant as possible. Fix Code Style quickly by running `vendor/bin/php-cs-fixer fix`. Give a good description of what is supposed to be added/changed/removed/fixed.
 
 ### Testing
 
 To test your code before pushing, run the unit test suite.
 
 ```bash
-phpunit
+vendor/bin/phpunit
 ```
 
 ## License
 
-[MIT](license)
+[MIT](LICENSE)

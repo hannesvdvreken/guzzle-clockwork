@@ -1,27 +1,32 @@
 {
     "name": "hannesvdvreken/guzzle-clockwork",
-    "description": "A Guzzle plugin that listens to events and logs them with Clockwork",
+    "description": "A Guzzle middleware that logs requests with Clockwork",
     "authors": [
         {
             "name": "Hannes Van De Vreken",
             "email": "vandevreken.hannes@gmail.com"
         }
     ],
-    "keywords": ["Clockwork", "Log", "Guzzle", "Events", "PHP", "Browser", "Devtools"],
+    "keywords": ["Clockwork", "log", "Guzzle", "middleware", "profiling", "profiler", "PHP", "browser", "Devtools"],
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0",
-        "guzzlehttp/guzzle": "~4|~5"
+        "php": ">=5.5.0",
+        "hannesvdvreken/guzzle-profiler": "^1.0",
+        "itsgoingd/clockwork": "^1.4"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.*",
-        "itsgoingd/clockwork": "1.5.*",
-        "illuminate/support": "~4"
+        "illuminate/support": "~4|~5",
+        "fabpot/php-cs-fixer": "^1.10",
+        "phpunit/phpunit": "^4.0"
     },
     "autoload": {
         "psr-4": {
-            "GuzzleHttp\\Subscriber\\Log\\": "src/"
+            "GuzzleHttp\\Profiling\\Clockwork\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "autoload-dev": {
+        "psr-4": {
+            "GuzzleHttp\\Profiling\\Clockwork\\Unit\\": "tests/unit/"
+        }
+    }
 }
