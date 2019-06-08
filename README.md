@@ -17,10 +17,12 @@ Guzzle middleware for logging requests clockwork's timeline so you can view the 
 
 ```php
 // First you need a Clockwork object
-$clockwork = new Clockwork\Clockwork();
+$clockwork = Clockwork\Support\Vanilla\Clockwork::init();
 
 // Create the Guzzle middleware
-$middleware = new GuzzleHttp\Middleware\Log\Clockwork($clockwork);
+$middleware = new GuzzleHttp\Profiling\Middleware(
+    new GuzzleHttp\Profiling\Clockwork\Profiler($clockwork->getTimeline())
+);
 
 // Then you need to add it to the Guzzle HandlerStack
 $stack = GuzzleHttp\HandlerStack::create();
@@ -28,7 +30,7 @@ $stack = GuzzleHttp\HandlerStack::create();
 $stack->unshift($middleware);
 ```
 
-And you are done!
+Depending on your integration of Clockwork, make sure that you call `$clockwork->requestProcessed();` before you output your page.
 
 ### Laravel
 
