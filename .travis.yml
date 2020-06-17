@@ -2,12 +2,13 @@ language: php
 
 matrix:
   include:
-    - php: 5.5
-      env: PREFER_LOWEST=--prefer-lowest
     - php: 5.6
-      env: COLLECT_COVERAGE=true
+      env: PREFER_LOWEST=--prefer-lowest
     - php: 7.0
-    - php: hhvm
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+      env: COLLECT_COVERAGE=true
 
 install:
   - travis_retry composer self-update
