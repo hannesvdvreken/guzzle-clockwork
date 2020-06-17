@@ -5,16 +5,14 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Profiling\Clockwork\Support\Laravel\ServiceProvider;
-use Illuminate\Container\Container;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ServiceProviderTest extends PHPUnit_Framework_TestCase
+class ServiceProviderTest extends TestCase
 {
     public function testAttributes()
     {
         // Arrange
-        $app = $this->getMock(Container::class);
-        $serviceProvider = new ServiceProvider($app);
+        $serviceProvider = new ServiceProvider('app');
 
         // Act
         $deferred = $serviceProvider->isDeferred();

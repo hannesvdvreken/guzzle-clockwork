@@ -5,9 +5,9 @@ use Clockwork\Request\Timeline;
 use GuzzleHttp\Profiling\Clockwork\Profiler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ProfilerTest extends PHPUnit_Framework_TestCase
+class ProfilerTest extends TestCase
 {
     public function testTimelineIsCalled()
     {
