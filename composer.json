@@ -29,6 +29,12 @@
             "GuzzleHttp\\Profiling\\Clockwork\\Unit\\": "tests/unit/"
         }
     },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/hannesvdvreken"
+        }
+    ],
     "config": {
         "discard-changes": true
     }
