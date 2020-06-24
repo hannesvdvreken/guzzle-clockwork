@@ -1,11 +1,11 @@
 # [Guzzle](http://docs.guzzlephp.org/en/latest/) middleware for [Clockwork](https://github.com/itsgoingd/clockwork) logging
 
-[![Build Status](http://img.shields.io/travis/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork)
-[![Latest Stable Version](http://img.shields.io/packagist/v/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
+[![Build Status](https://img.shields.io/travis/hannesvdvreken/guzzle-clockwork/2.x?style=flat-square)](https://travis-ci.org/hannesvdvreken/guzzle-clockwork)
+[![Latest Stable Version](https://img.shields.io/packagist/v/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
 [![Code Quality](https://img.shields.io/scrutinizer/g/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://scrutinizer-ci.com/g/hannesvdvreken/guzzle-clockwork/)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://scrutinizer-ci.com/g/hannesvdvreken/guzzle-clockwork/)
-[![Total Downloads](http://img.shields.io/packagist/dt/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
-[![License](http://img.shields.io/packagist/l/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](#license)
+[![Total Downloads](https://img.shields.io/packagist/dt/hannesvdvreken/guzzle-clockwork.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/guzzle-clockwork)
+[![License](https://img.shields.io/github/license/hannesvdvreken/guzzle-clockwork?style=flat-square)](#license)
 
 Guzzle middleware for logging requests clockwork's timeline so you can view the timeline in your browser's developer tools.
 
