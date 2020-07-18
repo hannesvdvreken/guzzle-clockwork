@@ -38,6 +38,5 @@
     "config": {
         "sort-packages": true,
         "discard-changes": true
-    },
-    "minimum-stability": "RC"
+    }
 }
