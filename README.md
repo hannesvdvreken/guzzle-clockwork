@@ -28,7 +28,10 @@ $middleware = new \GuzzleHttp\Profiling\Middleware(
 $stack = \GuzzleHttp\HandlerStack::create();
 
 $stack->unshift($middleware);
+
 $client = new \GuzzleHttp\Client(['handler' => $stack]);
+
+$client->get('https://httpbin.org/status/418');
 ```
 
 Depending on your integration of Clockwork, make sure that you call `$clockwork->requestProcessed();` before you output your page.
