@@ -9,25 +9,26 @@
 
 Guzzle middleware for logging requests clockwork's timeline so you can view the timeline in your browser's developer tools.
 
-![Developer tools timeline](https://dl.dropboxusercontent.com/s/2okdxq30qr1n8os/timeline.png?dl=1&token_hash=AAH3BzQL-ks_lotJBZ-6iZ9i1OYaX8T9pEbA0vY_KWqp2g "Developer tools timeline")
+![Developer tools timeline](images/clockwork-timeline.png "Developer tools timeline")
 
-![Developer tools logs](https://dl.dropboxusercontent.com/s/ca1gydqgar1twq6/log.png?dl=1&token_hash=AAEwY0bcesfhdG_da1_sTkyQ__GlZ9BQl6FRXZgzXJky_A "Developer tools logs")
+![Developer tools logs](images/clockwork-logs.png "Developer tools logs")
 
 ## Usage
 
 ```php
 // First you need a Clockwork object
-$clockwork = Clockwork\Support\Vanilla\Clockwork::init();
+$clockwork = \Clockwork\Support\Vanilla\Clockwork::init();
 
 // Create the Guzzle middleware
-$middleware = new GuzzleHttp\Profiling\Middleware(
-    new GuzzleHttp\Profiling\Clockwork\Profiler($clockwork->getTimeline())
+$middleware = new \GuzzleHttp\Profiling\Middleware(
+    new \GuzzleHttp\Profiling\Clockwork\Profiler($clockwork->getClockwork()->timeline())
 );
 
 // Then you need to add it to the Guzzle HandlerStack
-$stack = GuzzleHttp\HandlerStack::create();
+$stack = \GuzzleHttp\HandlerStack::create();
 
 $stack->unshift($middleware);
+$client = new \GuzzleHttp\Client(['handler' => $stack]);
 ```
 
 Depending on your integration of Clockwork, make sure that you call `$clockwork->requestProcessed();` before you output your page.
@@ -40,9 +41,9 @@ the subscriber to every Guzzle Client.
 ```php
 'providers' => [
     ...
-    'Clockwork\Support\Laravel\ClockworkServiceProvider',
-    'GuzzleHttp\Profiling\Clockwork\Support\Laravel\ServiceProvider',
-]
+    \Clockwork\Support\Laravel\ClockworkServiceProvider::class,
+    \GuzzleHttp\Profiling\Clockwork\Support\Laravel\ServiceProvider::class,
+],
 ```
 
 Be sure to create every client (type hint with `GuzzleHttp\ClientInterface` or `GuzzleHttp\Client`) via the IoC container.

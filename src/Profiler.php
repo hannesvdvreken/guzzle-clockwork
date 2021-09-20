@@ -2,7 +2,7 @@
 
 namespace GuzzleHttp\Profiling\Clockwork;
 
-use Clockwork\Request\Timeline;
+use Clockwork\Request\Timeline\Timeline;
 use GuzzleHttp\Profiling\DescriptionMaker;
 use GuzzleHttp\Profiling\Profiler as ProfilerContract;
 use Psr\Http\Message\RequestInterface;
@@ -36,8 +36,7 @@ class Profiler implements ProfilerContract
     public function add(float $start, float $end, RequestInterface $request, ResponseInterface $response = null): void
     {
         $description = $this->describe($request, $response);
-        $name = spl_object_hash($request);
 
-        $this->timeline->addEvent($name, $description, $start, $end);
+        $this->timeline->event($description, compact('start', 'end'));
     }
 }

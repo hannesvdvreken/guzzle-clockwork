@@ -2,7 +2,7 @@
 
 namespace GuzzleHttp\Profiling\Clockwork\Unit;
 
-use Clockwork\Request\Timeline;
+use Clockwork\Request\Timeline\Timeline;
 use GuzzleHttp\Profiling\Clockwork\Profiler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -13,7 +13,7 @@ class ProfilerTest extends TestCase
     public function testTimelineIsCalled()
     {
         // Arrange
-        $timeline = $this->getMockBuilder(Timeline::class)->getMock();
+        $timeline = $this->createMock(Timeline::class);
         $profiler = new Profiler($timeline);
         $request = new Request('GET', 'http://httpbin.org/status/418');
         $response = new Response(418);
@@ -21,13 +21,13 @@ class ProfilerTest extends TestCase
         // Set expectations
         $timeline
             ->expects($this->once())
-            ->method('addEvent')
+            ->method('event')
             ->with(
-                $this->anything(),
                 'GET http://httpbin.org/status/418 returned 418 I\'m a teapot', // This is not under test.
-                $start = microtime(true),
-                $end = microtime(true),
-                []
+                [
+                    'start' => $start = microtime(true),
+                    'end' => $end = microtime(true),
+                ]
             );
 
         // Act

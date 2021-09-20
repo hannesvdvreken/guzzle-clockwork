@@ -10,14 +10,14 @@
     "keywords": ["Clockwork", "log", "Guzzle", "middleware", "profiling", "profiler", "PHP", "browser", "Devtools"],
     "license": "MIT",
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
         "hannesvdvreken/guzzle-profiler": "^2.0",
-        "itsgoingd/clockwork": "^1.4|^2.0|^3.0|^4.0|^5.0"
+        "itsgoingd/clockwork": "^5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.2.20",
         "illuminate/support": ">=6",
-        "phpunit/phpunit": "^8.2.3"
+        "phpunit/phpunit": "^8.2.3|^9"
     },
     "autoload": {
         "psr-4": {

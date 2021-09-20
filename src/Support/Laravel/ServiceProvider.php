@@ -51,19 +51,20 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
         $this->app->resolving(HandlerStack::class, function(HandlerStack $stack): void {
             /** @var \Clockwork\Clockwork $clockwork */
             $clockwork = $this->app->make('clockwork');
+            $clockworkRequest = $clockwork->getRequest();
 
-            $stack->push(new Middleware(new Profiler($clockwork->getTimeline())));
+            $stack->push(new Middleware(new Profiler($clockworkRequest->timeline())));
 
             /** @var \GuzzleHttp\MessageFormatter $formatter */
             $formatter = $this->app->make(MessageFormatter::class);
-            $stack->unshift(GuzzleMiddleware::log($clockwork->getLog(), $formatter));
+            $stack->unshift(GuzzleMiddleware::log($clockworkRequest->log(), $formatter));
 
             // Also log to the default PSR logger.
             if ($this->app->bound(LoggerInterface::class)) {
                 $logger = $this->app->make(LoggerInterface::class);
 
                 // Don't log to the same logger twice.
-                if ($logger === $clockwork->getLog()) {
+                if ($logger === $clockworkRequest->log()) {
                     return;
                 }
 
